@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <header>
+      <% if(morador == null){ %>
+      <h1>Adicionar Morador</h1>
+      <form action="/create" method="post">
+        <input
+          name="apartamento"
+          id="apartamento"
+          placeholder="Apartamento"
+          type="number"
+        />
+        <input name="nome" id="nome" placeholder="Nome" type="text" />
+        <input name="cpf" id="cpf" placeholder="CPF" type="number" />
+        <input
+          name="data_nascimento"
+          id="data_nascimento"
+          placeholder="Data de nascimento"
+          type="text"
+        />
+        <input
+          name="telefone"
+          id="telefone"
+          placeholder="Telefone"
+          type="number"
+        />
+        <input name="vaga" id="vaga" placeholder="Vaga" type="number" />
+        <input name="marca" id="marca" placeholder="Marca" type="text" />
+        <input name="modelo" id="modelo" placeholder="Modelo" type="text" />
+        <input name="ano" id="ano" placeholder="Ano" type="number" />
+        <input name="placa" id="placa" placeholder="Placa" type="text" /><br />
+        <button id="addButton" type="submit">Adicionar</button>
+      </form>
+      <% }else { %>
+      <h1>Editar Morador</h1>
+      <form action="/updateOne/<%= morador._id %>" method="post">
+        <input
+          type="number"
+          name="apartamento"
+          id="apartamento"
+          value="<%= morador.apartamento %>"
+        />
+        <input type="text" name="nome" id="nome" value="<%= morador.nome %>" />
+        <input type="number" name="cpf" id="cpf" value="<%= morador.cpf %>" />
+        <input
+          type="text"
+          name="data_nascimento"
+          id="data_nascimento"
+          value="<%= morador.data_nascimento %>"
+        />
+        <input
+          type="number"
+          name="telefone"
+          id="telefone"
+          value="<%= morador.telefone %>"
+        />
+        <input
+          type="number"
+          name="vaga"
+          id="vaga"
+          value="<%= morador.vaga %>"
+        />
+        <input
+          type="text"
+          name="marca"
+          id="modelo"
+          value="<%= morador.marca %>"
+        />
+        <input
+          type="text"
+          name="modelo"
+          id="modelo"
+          value="<%= morador.modelo %>"
+        />
+        <input type="number" name="ano" id="ano" value="<%= morador.ano %>" />
+        <input
+          type="text"
+          name="placa"
+          id="placa"
+          value="<%= morador.placa %>"
+        />
+        <button id="updateButton" type="submit">Atualizar</button>
+      </form>
+      <% } %>
+    </header>
+    <section id="moradores">
+
+      <ul>
+        <% moradoresList.forEach((morador)=>{ %>
+          
+          
+          <li>
+            
+
+              <p><%= morador.apartamento %>  </p>
+              <p><%= morador.nome %></p>
+              <p><%= morador.cpf %> </p>
+              <p><%=morador.data_nascimento %></p>
+              <p><%= morador.telefone %> </p>
+              <p><%= morador.marca %></p> <br>
+              <p><%= morador.vaga %></p> 
+              <p><%= morador.modelo %></p>
+              <p><%= morador.ano %> </p>
+              <p><%=morador.placa %></p>
+
+            <div class="icons">
+              <a href="/getById/<%= morador._id%>/update"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a href="/getById/<%= morador._id%>/delete"><i class="fa-solid fa-trash"></i></a>
+            </div>
+          </li> 
+
+          
+          
+        
+        <% }) %>
+      </ul>
+    </section>
+    <% if(moradoresDelete != null){ %>
+    <section id="modal">
+      <div id="card">
+        <div id="head">
+          <h2>Confirmação</h2>
+          <a id="close" href="/">X</a>
+          
+        </div>
+
+        <hr />
+        <p>Deseja realmente apagar o morador: <%= moradoresDelete.nome%>?</p>
+        <div id="btns">
+          <a id="btnNot" href="/">Não</a>
+        <a id="btnYes" href="/deleteOne/<%= moradoresDelete._id%>">Sim</a>
+        </div>
+        
+      </div>
+    </section>
+    <% } %>
+    <script src="script.js"></script>
+  </body>
+</html>
